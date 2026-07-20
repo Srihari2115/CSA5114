@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char key[100];
+    char matrix[5][5];
+    int used[26] = {0}, i, j, k = 0;
+
+    printf("Enter keyword: ");
+    scanf("%s", key);
+
+    for(i = 0; key[i] != '\0'; i++) {
+        char ch = toupper(key[i]);
+
+        if(ch == 'J')
+            ch = 'I';
+
+        if(!used[ch - 'A']) {
+            matrix[k / 5][k % 5] = ch;
+            used[ch - 'A'] = 1;
+            k++;
+        }
+    }
+
+    for(i = 0; i < 26; i++) {
+        if(i == ('J' - 'A'))
+            continue;
+
+        if(!used[i]) {
+            matrix[k / 5][k % 5] = 'A' + i;
+            k++;
+        }
+    }
+
+    printf("\nPlayfair Matrix:\n");
+    for(i = 0; i < 5; i++) {
+        for(j = 0; j < 5; j++)
+            printf("%c ", matrix[i][j]);
+        printf("\n");
+    }
+
+    return 0;
+}
